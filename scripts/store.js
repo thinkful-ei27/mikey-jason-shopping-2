@@ -12,16 +12,31 @@ const store = (function(){
   const hideCheckedItems = false; 
   const searchTerm = '';
   const findById =  store.items.find(function(idNum){ 
+    console.log('findById ran');
     return idNum === items.id;});
   const addItem = function(name){
-    try{ Item.validateName(name);
+    console.log('addItem ran');
+    try { 
+      Item.validateName(name);
       this.items.push(Item.create(name));
-    } 
-    catch(error){
+    } catch(error) {
       console.log('Enter a valid item {error.message}');
     }
   };
+  const findAndUpdateName = (function(idNum, newName){
+    console.log('findAndUpdateName ran');
+    try {
+      Item.validateName(newName);
 
+      // set variable to the value of 
+      items.findById(idNum).name = newName;
+    
+    } catch(error) {
+      console.log('Enter a valid item {error.message}');
+    }
+  };
+  
+  )
 
   return {
     items,
