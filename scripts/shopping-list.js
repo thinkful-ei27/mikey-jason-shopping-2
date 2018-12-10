@@ -42,6 +42,7 @@ const shoppingList = (function(){
       items = items.filter(item => !item.checked);
     }
   
+  
     // Filter item list if store prop `searchTerm` is not empty
     if (store.searchTerm) {
       items = items.filter(item => item.name.includes(store.searchTerm));

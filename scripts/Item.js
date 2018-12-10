@@ -1,4 +1,4 @@
-/*global cuid, Item */ 
+/*global cuid, Item, store */ 
 'use strict';
 
 const Item = (function() {
