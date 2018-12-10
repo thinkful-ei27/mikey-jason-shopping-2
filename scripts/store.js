@@ -1,4 +1,4 @@
-/*global store, cuid*/
+/*global store, cuid, Item*/
 'use strict';
 
 const store = (function(){
@@ -11,6 +11,17 @@ const store = (function(){
   ];
   const hideCheckedItems = false; 
   const searchTerm = '';
+  const findById =  store.items.find(function(idNum){ 
+    return idNum === items.id;});
+  const addItem = function(name){
+    try{ Item.validateName(name);
+      this.items.push(Item.create(name));
+    } 
+    catch(error){
+      console.log('Enter a valid item {error.message}');
+    }
+  };
+
 
   return {
     items,
