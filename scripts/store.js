@@ -13,12 +13,12 @@ const store = (function(){
   const searchTerm = '';
 
   const findById = function(id){
-    items.find(function(item){
+    store.items.find(function(item){
       Object.values(item);
       if(id === item.id){
-        console.log(item);
         return item;
       }
+      return item;
     });
     
   };
@@ -33,9 +33,10 @@ const store = (function(){
     }
   };
   const findAndToggleChecked = function(id){
-    console.log(store.findById(id));
-    // console.log(item);
-    // (checkStatus === true) ? checkStatus = false : checkStatus = true;
+    let item = (this.findById(id));
+    console.log(item);
+    let checkStatus = this.checked;
+    (checkStatus === true) ? checkStatus = false : checkStatus = true;
   };
 
   const findAndUpdateName = (function(idNum, newName){
@@ -50,11 +51,11 @@ const store = (function(){
   });
 
   const findAndDelete = function(id){
-    const item= store.findById(id);
+    const item = store.findById(id);
     const deletingIndex = items.findIndex(item);
     items.splice(deletingIndex, 1);
   };
-  console.log(items);
+ 
 
   return {
     items,
