@@ -56,9 +56,6 @@ const store = (function(){
     store.searchTerm = val;
   };
 
-
-
-
   return {
     items,
     hideCheckedItems,
