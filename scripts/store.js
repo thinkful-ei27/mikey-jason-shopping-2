@@ -12,42 +12,49 @@ const store = (function(){
   const hideCheckedItems = false; 
   const searchTerm = '';
 
-  const findById = (function(id) {
-    const foundItem = items.find(item => item.id === id);
-    return foundItem;
-  }
+  const findById = function(id){
+    items.find(function(item){
+      Object.values(item);
+      if(id === item.id){
+        console.log(item);
+        return item;
+      }
+    });
+    
+  };
 
   const addItem = function(name){
-    console.log('addItem ran');
     try { 
       Item.validateName(name);
-      Item.create(name);
-      items.push(Item.create(name));
+      store.items.push(Item.create(name));
+      console.log('addItem ran');
     } catch(error) {
       console.log('Enter a valid item {error.message}');
     }
-    shoppingList.render();
   };
-    const findAndToggleChecked = function(id){
-      this.findById(id).checked = !this.findById(id).checked;
-    };
+  const findAndToggleChecked = function(id){
+    console.log(store.findById(id));
+    // console.log(item);
+    // (checkStatus === true) ? checkStatus = false : checkStatus = true;
+  };
 
-    const findAndUpdateName = (function(idNum, newName){
-      console.log('findAndUpdateName ran');
-      try {
-        Item.validateName(newName);
-        // set variable to the value of 
-        items.findById(idNum).name = newName;
-      } catch(error) {
-        console.log('Enter a valid item {error.message}');
-      }
-    });
+  const findAndUpdateName = (function(idNum, newName){
+    console.log('findAndUpdateName ran');
+    try {
+      Item.validateName(newName);
+      // set variable to the value of 
+      findById(idNum).name = newName;
+    } catch(error) {
+      console.log('Enter a valid item {error.message}');
+    }
+  });
 
-    const findAndDelete = function(id){
-      const item = items.findById(id);
-      const deletingIndex = items.findIndex(item);
-      items.splice(deletingIndex, 1);
-    };
+  const findAndDelete = function(id){
+    const item= store.findById(id);
+    const deletingIndex = items.findIndex(item);
+    items.splice(deletingIndex, 1);
+  };
+  console.log(items);
 
   return {
     items,
@@ -59,6 +66,6 @@ const store = (function(){
     findAndUpdateName,
     findAndDelete
   };
-
+  
 
 }());
