@@ -1,4 +1,4 @@
-/*global store, cuid, Item*/
+/*global store, cuid, Item */
 'use strict';
 
 const store = (function(){
@@ -11,51 +11,53 @@ const store = (function(){
   ];
   const hideCheckedItems = false; 
   const searchTerm = '';
-
+  
   const findById = function(id){
-    store.items.find(function(item){
-      Object.values(item);
-      if(id === item.id){
-        return item;
-      }
-      return item;
-    });
-    
+    const commodity =  store.items.find(item => item.id === id);
+    return commodity;
   };
-
+  
   const addItem = function(name){
-    try { 
+    try {
       Item.validateName(name);
-      store.items.push(Item.create(name));
-      console.log('addItem ran');
-    } catch(error) {
-      console.log('Enter a valid item {error.message}');
+      this.items.push(Item.create(name));
     }
-  };
-  const findAndToggleChecked = function(id){
-    let item = (this.findById(id));
-    console.log(item);
-    let checkStatus = this.checked;
-    (checkStatus === true) ? checkStatus = false : checkStatus = true;
+    catch(error) {
+      console.log( 'Cannot add item: {error.message}');
+    }
   };
 
-  const findAndUpdateName = (function(idNum, newName){
-    console.log('findAndUpdateName ran');
+  const findAndToggleChecked = function(id){
+    let item = this.findById(id);
+    item.checked === true ? item.checked = false : item.checked = true;
+  };
+
+  const findAndUpdateName = function(id , newName){
     try {
-      Item.validateName(newName);
-      // set variable to the value of 
-      findById(idNum).name = newName;
-    } catch(error) {
-      console.log('Enter a valid item {error.message}');
+      Item.validateName(name);
+      let item = this.findById(id);
+      item.name = newName;
     }
-  });
+    catch(error) {
+      console.log( 'Cannot valdiate name: {error.message}');
+    }
+  };
 
   const findAndDelete = function(id){
-    const item = store.findById(id);
-    const deletingIndex = items.findIndex(item);
-    items.splice(deletingIndex, 1);
+    const index = this.items.findIndex(item => item.id === id);
+    this.items.splice(index, 1);
   };
- 
+
+  const toggleCheckedFilter = function(){
+    store.hideCheckedItems = !store.hideCheckedItems;
+  };
+
+  const setSearchTerm = function(val){
+    store.searchTerm = val;
+  };
+
+
+
 
   return {
     items,
@@ -65,8 +67,13 @@ const store = (function(){
     addItem,
     findAndToggleChecked,
     findAndUpdateName,
-    findAndDelete
+    findAndDelete,
+    toggleCheckedFilter,
+    setSearchTerm
+
   };
+
+
   
 
 }());
